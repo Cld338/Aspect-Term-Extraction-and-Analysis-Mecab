@@ -16,7 +16,7 @@ class dataset_ATM(Dataset):
     def __getitem__(self, idx):
         tokens, tags, pols = self.df.iloc[idx, :3].values
 
-        tokens = tokens.replace("'", "").strip("][").split(', ')
+        tokens = tokens.replace("'", "").replace("[", "").replace("]", "").split(', ')
         tags = tags.strip('][').split(', ')
         pols = pols.strip('][').split(', ')
 
@@ -28,7 +28,7 @@ class dataset_ATM(Dataset):
             bert_tokens += t
             bert_tags += [int(tags[i])]*len(t)
             bert_pols += [int(pols[i])]*len(t)
-            
+
         bert_ids = self.vectorizer.convert_tokens_to_ids(bert_tokens)
 
         ids_tensor = torch.tensor(bert_ids)
