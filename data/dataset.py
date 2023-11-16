@@ -16,7 +16,7 @@ class dataset_ATM(Dataset):
     def __getitem__(self, idx):
         tokens, tags, pols = self.df.iloc[idx, :3].values
 
-        tokens = tokens.replace("'", "").split(', ')
+        tokens = tokens.replace("'", "").replace("[[", "[").replace("]]", "]").split(', ')
         print(tokens)
         tags = tags.strip('][').split(', ')
         pols = pols.strip('][').split(', ')
