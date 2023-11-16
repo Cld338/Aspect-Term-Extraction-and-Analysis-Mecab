@@ -11,7 +11,7 @@ class bert_ATE(torch.nn.Module):
     def forward(self, ids_tensors, tags_tensors, masks_tensors):
         bert_outputs = self.bert(input_ids=ids_tensors, attention_mask=masks_tensors, return_dict=False)
         # print(bert_outputs.size())
-        linear_outputs = self.linear(tensor.Tensor(bert_outputs))
+        linear_outputs = self.linear(torch.Tensor(bert_outputs))
         # print(linear_outputs.size())
 
         if tags_tensors is not None:
