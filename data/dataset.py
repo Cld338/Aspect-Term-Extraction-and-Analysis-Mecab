@@ -27,7 +27,7 @@ class dataset_ATM(Dataset):
         
         # bert_ids = self.vectorizer.transform([" ".join(i) for i in tokens]).toarray()
         # bert_ids = [i[0] for i in bert_ids]
-        bert_ids = self.tokenizer.convert_tokens_to_ids(bert_tokens)
+        bert_ids = self.vectorizer.convert_tokens_to_ids(bert_tokens)
 
         ids_tensor = torch.tensor(bert_ids)
         tags_tensor = torch.tensor(bert_tags)
