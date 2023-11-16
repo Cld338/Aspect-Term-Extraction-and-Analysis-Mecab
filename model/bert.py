@@ -9,6 +9,7 @@ class bert_ATE(torch.nn.Module):
         self.loss_fn = torch.nn.CrossEntropyLoss()
 
     def forward(self, ids_tensors, tags_tensors, masks_tensors):
+        print("Input shape:", ids_tensors.shape)
         bert_outputs,_ = self.bert(input_ids=ids_tensors, attention_mask=masks_tensors, return_dict=False)
         # print(bert_outputs.size())
         linear_outputs = self.linear(bert_outputs)
