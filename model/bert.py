@@ -1,5 +1,4 @@
 from transformers import BertModel
-from torch.nn import BatchNorm1d
 import torch
 
 class bert_ATE(torch.nn.Module):
@@ -11,12 +10,13 @@ class bert_ATE(torch.nn.Module):
 
     def forward(self, ids_tensors, tags_tensors, masks_tensors):
         bert_outputs, _ = self.bert(input_ids=ids_tensors, attention_mask=masks_tensors, return_dict=False)
+
         linear_outputs = self.linear(torch.Tensor(bert_outputs))
+
+
         if tags_tensors is not None:
             tags_tensors = tags_tensors.view(-1)
             linear_outputs = linear_outputs.view(-1,3)
-            # print(linear_outputs.size())
-            # print(tags_tensors.size())
             loss = self.loss_fn(linear_outputs, tags_tensors)
             return loss
         else:

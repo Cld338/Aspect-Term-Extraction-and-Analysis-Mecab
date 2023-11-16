@@ -1,26 +1,19 @@
 from torch.utils.data import Dataset
 import pandas as pd
 import torch
-from torch.utils.data import Dataset
-import pandas as pd
-import torch
-
 
 class dataset_ATM(Dataset):
     def __init__(self, df, tokenizer, vectorizer):
         self.df = df
         self.tokenizer = tokenizer
         self.vectorizer = vectorizer
-
-
     def __getitem__(self, idx):
         tokens, tags, pols = self.df.iloc[idx, :3].values
 
-        tokens = tokens.replace("'", "").replace("[[", "[").replace("]]", "]").split(', ')
-        print(tokens)
+        tokens = tokens.replace("'", "").strip("][").split(', ')
         tags = tags.strip('][').split(', ')
         pols = pols.strip('][').split(', ')
-
+        print(tokens)
         bert_tokens = []
         bert_tags = []
         bert_pols = []
