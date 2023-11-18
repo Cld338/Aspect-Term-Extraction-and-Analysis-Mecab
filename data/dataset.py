@@ -13,7 +13,7 @@ class dataset_ATM(Dataset):
         tokens = tokens.replace("'", "").strip("][").split(', ')
         tags = tags.strip('][').split(', ')
         pols = pols.strip('][').split(', ')
-        print(tokens)
+        tokens = ["##"+i for i in tokens]
         bert_tokens = []
         bert_tags = []
         bert_pols = []
